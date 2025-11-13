@@ -1,0 +1,74 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+    <mat-card class="w-full max-w-md bg-white shadow-xl rounded-lg p-8">
+        <h2 class="text-3xl font-bold text-center text-indigo-700 mb-6">Update Profile Details</h2>
+
+        <!-- Initial Data Loading Spinner -->
+        <div *ngIf="isLoading" class="text-center p-8">
+            <mat-icon class="animate-spin text-indigo-500 text-6xl">cached</mat-icon>
+            <p class="mt-2 text-indigo-600">Loading current profile data...</p>
+        </div>
+        
+        <!-- Success Message -->
+        <div *ngIf="done && !isLoading" class="text-center p-4 mb-4 bg-green-100 text-green-700 rounded-lg shadow-md">
+            <mat-icon class="text-green-600 text-4xl">check_circle_outline</mat-icon>
+            <p class="font-semibold mt-2">Profile updated successfully!</p>
+            <p class="text-sm">Redirecting to profile...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage && !isLoading" class="p-3 mb-4 bg-red-100 text-red-700 rounded-lg border border-red-300">
+            <p class="font-semibold">Error:</p>
+            <p>{{ errorMessage }}</p>
+        </div>
+
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="space-y-6" *ngIf="!done && !isLoading">
+            
+            <!-- Name Field -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="name" type="text" required>
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="updateForm.get('name')?.hasError('required') && updateForm.get('name')?.touched">
+                    Name is required.
+                </mat-error>
+                <mat-error *ngIf="updateForm.get('name')?.hasError('minlength') && updateForm.get('name')?.touched">
+                    Name must be at least 3 characters.
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Email Field -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="updateForm.get('email')?.hasError('required') && updateForm.get('email')?.touched">
+                    Email is required.
+                </mat-error>
+                <mat-error *ngIf="updateForm.get('email')?.hasError('email') && updateForm.get('email')?.touched">
+                    Enter a valid email address.
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Phone Field -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phone" type="tel" required>
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="updateForm.get('phone')?.hasError('required') && updateForm.get('phone')?.touched">
+                    Phone number is required.
+                </mat-error>
+                <mat-error *ngIf="updateForm.get('phone')?.hasError('pattern') && updateForm.get('phone')?.touched">
+                    Enter a valid Egyptian phone number (e.g., 010xxxxxxxxx).
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="updateForm.invalid || isUpdating" class="w-full py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition duration-300">
+                <span *ngIf="!isUpdating">Save Changes</span>
+                <div *ngIf="isUpdating" class="flex items-center justify-center">
+                    <mat-icon class="animate-spin mr-2">refresh</mat-icon>
+                    Updating...
+                </div>
+            </button>
+        </form>
+    </mat-card>
+</div>

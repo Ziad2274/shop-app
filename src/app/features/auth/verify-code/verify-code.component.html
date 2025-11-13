@@ -1,0 +1,15 @@
+<div class="auth-container">
+  <h2>Verify Reset Code</h2>
+  <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter code</mat-label>
+      <input matInput maxlength="6" formControlName="resetCode" />
+      @if (verifyForm.get("resetCode").invalid&&verifyForm.get("resetCode").touched) {
+      <mat-error >Enter a valid code</mat-error>
+      }
+    </mat-form-field>
+    <button mat-flat-button color="primary" class="full-width" [disabled]="verifyForm.invalid">Verify</button>
+  </form>
+
+  <p *ngIf="verified" class="sent-text">✅ Code verified successfully!</p>
+</div>

@@ -1,0 +1,20 @@
+.address-container {
+  max-width: 600px;
+  margin: auto;
+  font-family: 'Archivo', sans-serif;
+
+  .address-form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .address-card {
+    background: #fafafa;
+    transition: transform 0.2s ease;
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+}

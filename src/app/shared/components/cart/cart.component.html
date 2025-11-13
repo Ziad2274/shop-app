@@ -1,0 +1,108 @@
+<div class="body p-5">
+  <h2 class="fw-bolder mb-4">🛒 Your Shopping Cart</h2>
+
+  @if (cartItemsDetailsList.length === 0) { @if(isLoaded){
+  <div class="alert alert-info mt-4 text-center">
+    Your cart is currently empty. Start shopping now!
+  </div>
+  } @else {
+  <div class="d-flex justify-content-center py-5">
+    <div
+      class="spinner-border text-dark"
+      role="status"
+      style="width: 3rem; height: 3rem"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  } } @else {
+  <div class="container-fluid p-5">
+    <div
+      class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom"
+    >
+      <p class="text-muted mb-0">
+        Total Items: {{ cartItemsDetailsList.length }}
+      </p>
+    </div>
+
+    @for (item of cartItemsDetailsList; track item._id) {
+    <div
+      class="cart-card row align-items-center p-3 my-3 border rounded-3 shadow-sm bg-white"
+    >
+      <div class="col-2 col-md-1 d-flex justify-content-center">
+        <div
+          class="image-wrapper rounded-3 overflow-hidden"
+          style="width: 70px; height: 70px"
+        >
+          <img
+            [src]="item.product.imageCover"
+            [alt]="item.product.title"
+            class="w-100 h-100"
+            style="object-fit: cover"
+          />
+        </div>
+      </div>
+
+      <div class="col-7 col-md-5 details px-md-3">
+        <h3
+          class="name h6 fw-bold text-truncate mb-1"
+          title="{{ item.product.title }}"
+        >
+          {{ item.product.title }}
+        </h3>
+        <p class="price mb-0 text-success fw-bold">${{ item.price }}</p>
+      </div>
+
+      <div
+        class="col-5 col-md-3 quantity d-flex align-items-center justify-content-center gap-2"
+      >
+        <button
+          mat-icon-button
+          (click)="decrease(item.product.id, item.count)"
+          [disabled]="item.count <= 1"
+          class="btn btn-sm btn-outline-secondary p-1"
+        >
+          <mat-icon style="font-size: 18px">remove</mat-icon>
+        </button>
+        <span class="fw-bold px-2 border rounded">{{ item.count }}</span>
+        <button
+          mat-icon-button
+          (click)="increase(item.product.id)"
+          class="btn btn-sm btn-outline-secondary p-1"
+        >
+          <mat-icon style="font-size: 18px">add</mat-icon>
+        </button>
+      </div>
+
+      <div class="col-2 col-md-2 subtotal d-none d-md-block text-end">
+        <p class="mb-0 fw-bolder">${{ item.price * item.count }}</p>
+      </div>
+
+      <div class="col-1 col-md-1 text-center">
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="removeItem(item.product.id)"
+          class="remove-btn border-0 bg-transparent text-danger p-1"
+          aria-label="Remove item"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="d-flex justify-content-around mt-5 pt-3 border-top border-2">
+    <h3 class="fw-bolder">
+       Total:
+      <span class="text-primary display-6 ms-2 fa-bold">${{ subTotal }}</span>
+    </h3>
+         <button
+         [routerLink]="['/shipping-details', cartId]"
+         class="btn btn-dark shadow">
+        <a class="nav-link text-white">Go To Checkout  ➜</a>
+    </button>
+  </div>
+  }
+</div>

@@ -1,0 +1,24 @@
+html, body {
+  font-family: 'Archivo', sans-serif;
+  color: #000;
+  background-color: #fff;
+}
+.navbar-brand {
+  font-weight: 1000!important;
+  font-size: 1.8rem!important;
+}
+
+
+.navbar .nav-link:hover,
+.navbar .active-link {
+  color: #000;
+}
+
+.navbar mat-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.navbar mat-icon:hover {
+  transform: scale(1.1);
+}

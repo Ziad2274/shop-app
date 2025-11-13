@@ -1,0 +1,7 @@
+.list-group-item {
+        transition: transform 0.3s;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+}

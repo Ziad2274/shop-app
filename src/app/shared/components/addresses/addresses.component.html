@@ -1,0 +1,87 @@
+<div class="address-container p-5">
+  <h2 class="fw-bold mb-4">📍 Manage Addresses</h2>
+
+  <!-- Add New Address Form -->
+  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="address-form mb-5">
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter your full name" />
+      <mat-error *ngIf="addressForm.get('name')?.invalid && addressForm.get('name')?.touched">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Address Details</mat-label>
+      <textarea
+        matInput
+        rows="2"
+        formControlName="details"
+        placeholder="Street, building, apartment..."
+      ></textarea>
+      <mat-error *ngIf="addressForm.get('details')?.invalid && addressForm.get('details')?.touched">
+        Address details are required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        type="tel"
+        formControlName="phone"
+        placeholder="Enter Egyptian phone number"
+      />
+      <mat-error *ngIf="addressForm.get('phone')?.invalid && addressForm.get('phone')?.touched">
+        Enter a valid Egyptian phone number (starts with 01)
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" placeholder="Enter your city" />
+      <mat-error *ngIf="addressForm.get('city')?.invalid && addressForm.get('city')?.touched">
+        City is required
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="w-100 mt-2"
+      [disabled]="addressForm.invalid"
+    >
+      Save Address
+    </button>
+  </form>
+  @if (!isLoading) {
+    <div class="d-flex justify-content-center align-items-center py-5">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
+  @else {
+     <div *ngIf="addressesList.length > 0; else noAddresses">
+    <h4 class="fw-semibold mb-3">Saved Addresses:</h4>
+    <div
+      class="address-card p-3 border rounded-3 shadow-sm mb-3"
+      *ngFor="let addr of addressesList"
+    >
+      <p class="mb-1 fw-bold">{{ addr.name }}</p>
+      <p class="mb-1 text-muted">{{ addr.details }}</p>
+      <p class="mb-1"><strong>City:</strong> {{ addr.city }}</p>
+      <p class="mb-1"><strong>Phone:</strong> {{ addr.phone }}</p>
+      <button mat-stroked-button color="warn" (click)="removeAdresses(addr._id)">
+        Delete
+      </button>
+    </div>
+  </div>
+  <ng-template #noAddresses>
+    <p class="text-center text-muted mt-4">No saved addresses yet.</p>
+  </ng-template> 
+  }
+  <!-- Saved Addresses -->
+
+
+</div>

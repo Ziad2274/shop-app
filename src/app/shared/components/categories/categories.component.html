@@ -1,0 +1,43 @@
+<div class="browse-section">
+
+
+<div class="container ">
+  <h2 class="section-title  text-center text-dark">Browse By Category</h2>
+  <hr>
+  @if (isLoading) {
+    <div class="d-flex justify-content-center align-items-center py-5">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
+
+  @else if (errorMessage) {
+    <div class="alert alert-danger text-center">{{ errorMessage }}</div>
+  }
+
+  @else if (categories.length > 0) {
+      <div class="style-container  ">
+        <mat-grid-list cols="4" rowHeight="300px" gutterSize="20px">
+              @for (item of categories; track $index) {
+              
+              <mat-grid-tile 
+                  [routerLink]="['/categories', item._id, 'subcategories']"
+                  [colspan]="($index%4=== 0||$index%4===3) ? 1 : 2"
+                  [rowspan]="1" class="style-card">
+                  <img [src]=[item.image] alt="Casual" />
+                  <div class="overlay"><h3>{{item.name}}</h3></div>
+                  
+              </mat-grid-tile>        
+              }          
+        </mat-grid-list>
+
+      </div>
+      
+
+  }
+
+  @else {
+    <div class="alert alert-info text-center">No categories found.</div>
+  }
+</div></div>

@@ -1,0 +1,63 @@
+<section class="products">
+  <div class="product-grid">
+    @if (!productsList.length) {
+    <div class="d-flex justify-content-center py-3">
+      <div
+        class="spinner-border text-dark"
+        role="status"
+        style="width: 3rem; height: 3rem"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    } @else { @for( product of productsList|search:searchedWord; track
+    product.id) {
+    <div class="product-card">
+      <!-- Wishlist Button -->
+      <button class="wishlist-btn" (click)="toggleWishlist(product, $event)">
+        <i
+          class="fa-heart"
+          [ngClass]="{
+            'fas text-danger': isProductInWishlist(product.id),
+            'far text-dark': !isProductInWishlist(product.id)
+          }"
+        ></i>
+      </button>
+
+      <!-- Product Image -->
+      <div [routerLink]="['/product-details', product.id]">
+        <img
+          class="product-image"
+          [src]="product.imageCover"
+          [alt]="product.title"
+        />
+      </div>
+
+      <h4>{{ product.title | trim : 2 }}</h4>
+
+      <div class="rating d-flex align-items-center gap-1">
+        @for (star of [1,2,3,4,5].slice(0, product.ratingsAverage); track
+        $index) {
+        <span><i class="fas fa-star text-warning"></i></span>
+        } @if (product.ratingsAverage % 1 !== 0) {
+        <span><i class="fas fa-star-half-alt text-warning"></i></span>
+        }
+      </div>
+
+      <div class="prices d-flex align-items-center gap-3">
+        @if (product.priceAfterDiscount !== null && product.priceAfterDiscount <
+        product.price) {
+        <span class="text-dark fw-bold h4"
+          >{{ product.priceAfterDiscount }} EGP</span
+        >
+        <p>
+          <s class="text-muted">{{ product.price }}</s>
+        </p>
+        } @else {
+        <span class="text-dark fw-bold h4">{{ product.price }} EGP</span>
+        }
+      </div>
+    </div>
+    } }
+  </div>
+</section>

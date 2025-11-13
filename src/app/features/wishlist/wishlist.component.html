@@ -1,0 +1,42 @@
+@if (!loading && !error) {
+  <div class="wishlist-container">
+    <h2>Your Wishlist ❤️</h2>
+
+    @if (wishlist.length === 0) {
+      <div class="empty">
+        <mat-icon>favorite_border</mat-icon>
+        <p>Your wishlist is empty.</p>
+      </div>
+    }
+
+    @if (wishlist.length > 0) {
+      <div class="wishlist-list">
+        @for (item of wishlist; track $index) {
+          <div class="wishlist-row">
+            <div class="image" (click)="goToProduct(item._id)">
+              <img [src]="item.imageCover" [alt]="item.title" />
+            </div>
+
+            <div class="info" (click)="goToProduct(item._id)">
+              <h3>{{ item.title }}</h3>
+              <p class="price">${{ item.price }}</p>
+            </div>
+
+            <div class="actions">
+              <button mat-icon-button color="warn" (click)="removeItem(item._id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}
+
+@else {
+  <div class="loading">
+    <mat-icon>hourglass_empty</mat-icon>
+    Loading your wishlist...
+  </div>
+}

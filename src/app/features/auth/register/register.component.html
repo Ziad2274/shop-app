@@ -1,0 +1,128 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Register Now</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+      <!-- NAME -->
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter your name"
+      />
+      @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+        <div class="text-danger small mt-1">
+          @if (registerForm.get('name')?.errors?.['required']) {
+            <div>Name is required.</div>
+          }
+          @if (registerForm.get('name')?.errors?.['maxLength']) {
+            <div>Name cannot exceed 20 characters.</div>
+          }
+        </div>
+      }
+
+      <!-- EMAIL -->
+      <label for="email">E-mail</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Enter your email"
+      />
+      @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+        <div class="text-danger small mt-1">
+          @if (registerForm.get('email')?.errors?.['required']) {
+            <div>Email is required.</div>
+          }
+          @if (registerForm.get('email')?.errors?.['email']) {
+            <div>Enter a valid email address.</div>
+          }
+        </div>
+      }
+
+      <!-- PASSWORD -->
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Enter your password"
+      />
+      @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+        <div class="text-danger small mt-1">
+          @if (registerForm.get('password')?.errors?.['required']) {
+            <div>Password is required.</div>
+          }
+          @if (registerForm.get('password')?.errors?.['minlength']) {
+            <div>Password must be at least 6 characters long.</div>
+          }
+          @if (registerForm.get('password')?.errors?.['pattern']) {
+            <div>Password must contain at least one letter and one number.</div>
+          }
+        </div>
+      }
+
+      <!-- REPASSWORD -->
+      <label for="rePassword">Confirm Password</label>
+      <input
+        type="password"
+        id="rePassword"
+        formControlName="rePassword"
+        placeholder="Re-enter your password"
+      />
+      @if (registerForm.get('rePassword')?.touched && registerForm.errors?.['passwordMismatch']) {
+        <div class="text-danger small mt-1">
+          Passwords don’t match.
+        </div>
+      }
+
+      <!-- PHONE -->
+      <label for="phone">Phone</label>
+      <input
+        type="text"
+        id="phone"
+        formControlName="phone"
+        placeholder="Enter your phone number"
+      />
+      @if (registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid) {
+        <div class="text-danger small mt-1">
+          @if (registerForm.get('phone')?.errors?.['required']) {
+            <div>Phone number is required.</div>
+          }
+          @if (registerForm.get('phone')?.errors?.['pattern']) {
+            <div>Enter a valid Egyptian phone number (10–15 digits).</div>
+          }
+        </div>
+      }
+
+      <!-- SUBMIT BUTTON -->
+      <button type="submit" [disabled]="registerForm.invalid || isloading">
+        Register
+      </button>
+
+      <!-- STATUS & LINKS -->
+      @if (isloading) {
+        <div class="spinner">
+          <i class="fas fa-spin fa-spinner"></i>
+        </div>
+      }
+
+      @if (errMsg) {
+        <div class="text-danger small mt-3">{{ errMsg }}</div>
+      }
+
+      @if (isSuccess) {
+        <div class="text-success small mt-3">
+          Registration successful!
+        </div>
+      }
+
+      <div class="links">
+        <p>Already have an account?
+          <a routerLink="/login">Login</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+@if (isLoaded===false) {
+  <div class="d-flex justify-content-center py-5">
+    <div class="spinner-border text-dark" role="status" style="width: 3rem; height: 3rem;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
+@else {
+  <div class="product-details-container">
+     <div class="product-header d-flex align-items-center gap-5 mb-4">
+        <div class="thumbnails d-flex flex-column gap-3">
+        @for (img of productDetails.images; track $index) {
+          @if ($index<3&&productDetails.images!==null) {
+             <img 
+            class="thumbnail-image"
+            [src]="img"
+            [alt]="productDetails.title + ' thumbnail ' + $index"
+            (click)="changeCoverImage(img)"
+            />
+          }
+           
+        }        
+        </div> 
+      
+        <div class="image-section">
+            <img [src]="productDetails.imageCover" [alt]="productDetails.title" />
+        </div>
+
+  
+
+  <div class="details-section">
+    <div class="img-fav d-flex gap-5 p-4">
+          <h2>{{ productDetails.title }}</h2>
+       <button
+      class="wishlist-btn wishlist-btn-item"
+      (click)="toggleWishlist(productDetails, $event)"
+    >
+      <i
+        class="fa-heart fa-solid"
+        [ngClass]="{
+          'fas text-danger': isProductInWishlist(productDetails.id),
+          'far text-secondary': !isProductInWishlist(productDetails.id)
+        }"
+      ></i>
+    </button>
+    </div>
+
+    <div class="rating d-flex align-items-center gap-1">
+      @for (star of [1,2,3,4,5].slice(0,productDetails.ratingsAverage); track
+      $index) {
+      <span><i class="fas fa-star text-warning"></i> </span>
+
+      } @if (productDetails.ratingsAverage%1!==0) {
+      <span><i class="fas fa-star-half-alt text-warning"></i> </span>
+      }  
+        <span class="reviews">({{ productDetails.ratingsQuantity }})</span>
+
+    </div>
+    <div class="fa-brands brand">
+      @if (productDetails.brand!==null&&productDetails.brand!==undefined) {
+      <p>by {{ productDetails.brand?.name }}</p>
+      }
+      @if (productDetails.brand!==null&&productDetails.brand!==undefined) {
+
+      <img
+        class="brand-image"
+        [src]="productDetails.brand.image"
+        [alt]="productDetails.brand.slug"
+      />
+      }
+    </div>
+
+    <div class="price-section">
+      <span class="current-price text-black">${{ productDetails.price }}</span>
+
+      @if (productDetails.priceAfterDiscount!==null
+      &&productDetails.priceAfterDiscount < productDetails.price) {
+      <span class="old-price">${{ productDetails.priceAfterDiscount }}</span>
+      <span class="discount brand text-danger bg-danger-subtle rounded fw-light"
+        >-{{ discountPercentage() }}%</span
+      >
+      }
+    </div>
+
+    <p class="description">{{ productDetails.description }}</p>
+    <span class="stock-status"
+      >Status : 
+      @if (productDetails.quantity > 0) {
+      <span class="in-stock text-success">In Stock</span>
+      } @else {
+      <span class="out-of-stock text-danger">Out of Stock</span>
+      }
+    </span>
+ 
+    <span class="category">Category : <span class="text-secondary">{{productDetails.category?.name}}</span> </span>
+
+    <span>Sold : <span class="text-secondary"> {{productDetails.sold}}</span> </span>
+<div class="quantity-counter d-flex align-items-center gap-5 mt-3">
+  <div class="counter d-flex align-items-center gap-2">
+    <button
+      class="qty-btn  "
+      (click)="decreaseQuantity()"
+      [disabled]="selectedQuantity <= 1"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+
+    <span class="quantity-display">{{ selectedQuantity }}</span>
+
+    <button
+      class="qty-btn"
+      (click)="increaseQuantity()"
+      [disabled]="selectedQuantity >= productDetails.quantity"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>  
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="addToCart(productDetails.id);"
+      class="add-btn"
+    >
+      <mat-icon>shopping_cart</mat-icon>
+      Add to Cart
+    </button>
+</div>
+
+
+  </div>
+</div>
+@if (showSuccessMessage) {
+    <p class="alert alert-success mt-3 sent-text">
+        ✅ Product added to cart successfully!
+    </p>
+}
+</div>
+ 
+
+}

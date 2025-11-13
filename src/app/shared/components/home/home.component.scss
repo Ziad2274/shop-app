@@ -1,0 +1,398 @@
+.hero {
+  position: relative;
+  height: 62vh;
+  background: radial-gradient(ellipse at bottom, #f4f4f4 0%, #dcdcdc 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #000;
+
+  .hero-text {
+    max-width: 500px;
+
+    h1 {
+      font-family: 'Archivo', sans-serif !important;
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    button {
+      background: #000;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-transform: none;
+      cursor: pointer;
+      border: none;
+      transform: scale(1);
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .hero-image img {
+    width: 420px;
+    border-radius: 16px;
+    margin-top: -80px;
+  }
+
+  /* Black animated stars - enhanced visibility */
+  .stars,
+  .stars2,
+  .stars3,
+  .stars4,
+  .stars5,
+  .stars6 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 300%;
+    background-repeat: repeat;
+    background-size: contain;
+    z-index: 0;
+    opacity: 0.8; /* brighter visibility */
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.6)); /* makes them pop */
+    animation: moveStars 120s linear infinite;
+  }
+
+  .stars {
+    background-image:
+      radial-gradient(3px 3px at 40px 60px, #000, transparent),
+      radial-gradient(3px 3px at 200px 100px, #111, transparent),
+      radial-gradient(2px 2px at 350px 200px, #000, transparent),
+      radial-gradient(2.5px 2.5px at 500px 300px, #111, transparent),
+      radial-gradient(3px 3px at 700px 400px, #000, transparent);
+    animation-duration: 200s;
+  }
+
+  .stars2 {
+    background-image:
+      radial-gradient(2.5px 2.5px at 20px 50px, #111, transparent),
+      radial-gradient(2px 2px at 150px 150px, #000, transparent),
+      radial-gradient(2.5px 2.5px at 400px 100px, #111, transparent),
+      radial-gradient(2px 2px at 600px 300px, #000, transparent),
+      radial-gradient(3px 3px at 800px 400px, #000, transparent);
+    animation-duration: 150s;
+  }
+
+  .stars3 {
+    background-image:
+      radial-gradient(2px 2px at 50px 200px, #222, transparent),
+      radial-gradient(1.5px 1.5px at 100px 300px, #111, transparent),
+      radial-gradient(2px 2px at 400px 250px, #000, transparent),
+      radial-gradient(1.5px 1.5px at 700px 200px, #111, transparent),
+      radial-gradient(2.5px 2.5px at 900px 400px, #000, transparent);
+    animation-duration: 250s;
+  }
+
+  @keyframes moveStars {
+    from {
+      transform: translateY(0) translateX(0);
+    }
+    to {
+      transform: translateY(-1000px) translateX(-1000px);
+    }
+  }
+}
+
+.brands {
+  display: flex;
+  justify-content: center;
+  max-height: 70px;
+  align-items: center;
+gap: 4rem;
+  background: #000;
+
+  img {
+    width: auto;
+    background-color: #000;
+    height: px;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: filter 0.3s, opacity 0.3s;
+
+    &:hover {
+      filter: none;
+      opacity: 1;
+    }
+  }
+  .versace{
+     height:  70px;
+  }
+  .Calvin{
+    height:  50px;
+}
+ .Gucci{
+    height:  35px;
+ } 
+ .Prada{
+     height:  45px;
+   } 
+   .Zara{
+     height:  45px;
+     background-color: transparent;
+   }
+}
+ 
+
+
+
+
+.products {
+  padding: 4rem 6%;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      font-weight: 800;
+      font-size: 2.25rem;
+      font-family: 'Archivo', sans-serif !important;
+    }
+
+
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    .product-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+.product-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  padding: 1rem;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #fff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #f8f8f8;
+    }
+
+    i {
+      font-size: 1.2rem;
+      transition: color 0.2s ease;
+    }
+  }
+
+  .product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+
+  .prices {
+    align-items: center;
+  }
+}
+
+  }
+  .view-all{
+    margin-left: 40%;
+    width: 20%;
+    border: #0000005b solid;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+
+    .hero-image img {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 2rem;
+    }
+  }
+
+  .brands {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+// mat-grid//
+//.browse-section {
+//   text-align: center;
+//   background-color: #f7f7f7;
+//   padding: 60px 0;
+//   margin-top: 20%;
+//   margin-bottom: 20%;
+//   .section-title {
+//     font-size: 2rem;
+//     font-weight: 800;
+//     letter-spacing: 1px;
+//     margin-bottom: 40px;
+//     color: #000;
+//   }
+
+//   .style-grid {
+//     margin: 0 auto;
+//     max-width: 1200px;
+
+//     .mat-grid-tile {
+//       border-radius: 20px;
+//       overflow: visible;
+//       position: relative;
+//       background: #fff;
+//       cursor: pointer;
+//       transition: transform 0.3s ease, box-shadow 0.3s ease;
+//       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+//       img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//         transition: transform 0.4s ease;
+//       }
+
+//       .overlay {
+//         position: absolute;
+//         top: 15px;
+//         left: 20px;
+//         color: #000;
+//         h3 {
+//           font-size: 1.5rem;
+//           font-weight: 600;
+//         }
+//       }
+
+//       &:hover {
+//         transform: translateY(-5px);
+//         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+//       }
+
+//       &:hover img {
+//         transform: scale(1.05);
+//       }
+//     }
+//   }
+// }
+.browse-section {
+  background-color: #f5f5f5;
+  padding: 2% 50px;
+  margin: 5% 10%;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+  font-family: 'Archivo', sans-serif !important;
+    margin-bottom: 40px;
+    color: #000;
+  }
+
+  .style-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+
+    .mat-grid-tile {
+      border-radius: 20px;
+      background: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    background-color: white;
+
+      }
+
+      .overlay {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        color: #000;
+        h3 {
+          font-size: 1.6rem;
+          font-weight: 700;
+        }
+      }
+
+      &:hover img {
+        transform: scale(1.05);
+      }
+
+      &:hover {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+/* Responsive layout */
+@media (max-width: 992px) {
+  .style-container {
+    mat-grid-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}
+

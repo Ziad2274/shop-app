@@ -1,0 +1,18 @@
+.sub-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.icon-wrapper {
+  transition: background-color 0.3s, transform 0.3s;
+
+  &:hover {
+    background-color: rgba(13, 110, 253, 0.2);
+    transform: scale(1.1);
+  }
+}

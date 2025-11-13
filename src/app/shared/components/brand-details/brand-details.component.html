@@ -1,0 +1,32 @@
+<div class="container my-5">
+    <div *ngIf="isLoading" class="text-center p-5">
+        <p>Loading brand details...</p>
+        </div>
+
+    <div *ngIf="brandData" class="card shadow-lg p-4">
+        <div class="row g-0 align-items-center">
+            <div class="col-md-4 text-center">
+                <img [src]="brandData.image" 
+                     [alt]="brandData.name" 
+                     class="img-fluid rounded-start brand-logo-lg">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title display-4">{{ brandData.name }}</h1>
+                    <p class="card-text text-muted">Brand ID: {{ brandData._id }}</p>
+                    <p class="card-text lead">
+                        Explore all the products from {{ brandData.name }}.
+                        </p>
+                    <a [routerLink]="['/products/search', brandData.slug]" class="btn btn-primary mt-3">
+                        View Products by {{ brandData.name }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!brandData && !isLoading" class="text-center p-5">
+        <h2>Brand Not Found</h2>
+        <p>The brand you requested could not be loaded.</p>
+    </div>
+</div>

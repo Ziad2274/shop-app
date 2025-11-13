@@ -1,0 +1,32 @@
+.body {
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+.cart-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    &:hover {
+        // Subtle interaction for a professional feel
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important; 
+    }
+    
+    .image-wrapper {
+        border: 1px solid #dee2e6;
+        flex-shrink: 0;
+    }
+
+    .details {
+        // Ensure name doesn't wrap awkwardly in small columns
+        .name {
+            max-width: 100%;
+        }
+    }
+}
+
+// Adjust material icon buttons for better visual balance
+.mat-icon-button {
+    min-width: 32px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0;
+}
