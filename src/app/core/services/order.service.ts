@@ -32,7 +32,7 @@ export class OrderService {
     shippingAddress: ShippingAddress, 
   ): Observable<any> {    
     return this._httpClient.post(
-      `${consts.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=${consts.serverUrl}`,
+      `${consts.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=https://zizo-shop.netlify.app`,
       { shippingAddress: shippingAddress },
       { headers: this.headers }
     );
