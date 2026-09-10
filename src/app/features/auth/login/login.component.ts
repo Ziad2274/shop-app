@@ -32,13 +32,8 @@ export class LoginComponent {
 
       this._auth.setLogin(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log(response);
           this.isLoading = false;
           this.isSuccess = true;
-          
-          localStorage.setItem('userToken', response.token);  
-          
-          this._auth.saveUserToken();
 
           setTimeout(() => {
             this._router.navigate(['/home']);

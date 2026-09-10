@@ -1,7 +1,37 @@
 <section class="products">
+
+  <!-- Filters -->
+  <div class="filters d-flex flex-wrap gap-3 align-items-center justify-content-center py-3">
+    <select class="form-select w-auto" [(ngModel)]="selectedCategoryId" (change)="onFilterChange()">
+      <option value="">All Categories</option>
+      @for (cat of categories; track cat._id) {
+        <option [value]="cat._id">{{ cat.name }}</option>
+        @for (sub of cat.subCategories; track sub._id) {
+          <option [value]="sub._id">&nbsp;&nbsp;— {{ sub.name }}</option>
+        }
+      }
+    </select>
+
+    <select class="form-select w-auto" [(ngModel)]="selectedBrandId" (change)="onFilterChange()">
+      <option value="">All Brands</option>
+      @for (brand of brands; track brand._id) {
+        <option [value]="brand._id">{{ brand.name }}</option>
+      }
+    </select>
+
+    <select class="form-select w-auto" [(ngModel)]="sortBy" (change)="onFilterChange()">
+      <option value="">Sort: Default</option>
+      <option value="price_asc">Price: Low to High</option>
+      <option value="price_desc">Price: High to Low</option>
+      <option value="name_asc">Name: A-Z</option>
+      <option value="name_desc">Name: Z-A</option>
+      <option value="rating_desc">Top Rated</option>
+    </select>
+  </div>
+
   <div class="product-grid">
-    @if (!productsList.length) {
-    <div class="d-flex justify-content-center py-3">
+    @if (loading) {
+    <div class="d-flex justify-content-center py-3 w-100">
       <div
         class="spinner-border text-dark"
         role="status"
@@ -10,8 +40,11 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    } @else { @for( product of productsList|search:searchedWord; track
-    product.id) {
+    } @else if (productsList.length === 0) {
+      <div class="text-center w-100 py-5">
+        <p class="h4 text-muted">No products match these filters.</p>
+      </div>
+    } @else { @for( product of productsList; track product.id) {
     <div class="product-card">
       <!-- Wishlist Button -->
       <button class="wishlist-btn" (click)="toggleWishlist(product, $event)">
@@ -35,14 +68,11 @@
 
       <h4>{{ product.title | trim : 2 }}</h4>
 
-      <div class="rating d-flex align-items-center gap-1">
-        @for (star of [1,2,3,4,5].slice(0, product.ratingsAverage); track
-        $index) {
-        <span><i class="fas fa-star text-warning"></i></span>
-        } @if (product.ratingsAverage % 1 !== 0) {
-        <span><i class="fas fa-star-half-alt text-warning"></i></span>
-        }
-      </div>
+      @if (product.reviewCount > 0) {
+        <div class="rating small text-muted mb-1">
+          ⭐ {{ product.ratingsAverage | number:'1.1-1' }} ({{ product.reviewCount }})
+        </div>
+      }
 
       <div class="prices d-flex align-items-center gap-3">
         @if (product.priceAfterDiscount !== null && product.priceAfterDiscount <
@@ -60,4 +90,22 @@
     </div>
     } }
   </div>
+
+  @if (!loading && totalPages > 1) {
+    <nav class="d-flex justify-content-center my-4">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="pageNumber === 1">
+          <button class="page-link" (click)="goToPage(pageNumber - 1)">Prev</button>
+        </li>
+        @for (p of [].constructor(totalPages); track $index) {
+          <li class="page-item" [class.active]="pageNumber === $index + 1">
+            <button class="page-link" (click)="goToPage($index + 1)">{{ $index + 1 }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="pageNumber === totalPages">
+          <button class="page-link" (click)="goToPage(pageNumber + 1)">Next</button>
+        </li>
+      </ul>
+    </nav>
+  }
 </section>

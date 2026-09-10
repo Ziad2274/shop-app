@@ -1,11 +1,14 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h2>Login</h2>
+    <div class="logo  d-flex justify-content-center pb-3 mb-2 ">
+      <img class="rounded bg-secondary cover-fill border-1" height="50" src="assets/aa.png" alt="image">
+    </div>
+    <h2>Welcome Back</h2>
+    <p class="text-secondary ">Let’s grow your business with Ai-power</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()"> 
       <label for="email">E-mail</label>
-      <input type="email" id="email" formControlName="email" />
-
+      <input class="input-with-icon"  placeholder=" ✉  Enter you email" type="email" id="email" formControlName="email" />
       @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
         <div class="text-danger small mt-1">
           @if (loginForm.get('email')?.errors?.['required']) {<div>Email is required.</div>}
@@ -14,9 +17,11 @@
       }
 
       <!-- Password -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
       <label for="password">Password</label>
-      <input type="password" id="password" formControlName="password" />
-
+      </div>
+      <input   class=" fa-placeholder mb-3"
+       placeholder="Enter your password" type="password" id="password" formControlName="password" />
       @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
         <div class="text-danger small mt-1">
           @if (loginForm.get('password')?.errors?.['required']) {<div>Password is required.</div>}
@@ -24,13 +29,12 @@
         </div>
       }
 
-      <button type="submit" [disabled]="loginForm.invalid || isLoading">
+      <button   type="submit" [disabled]="loginForm.invalid || isLoading">
         Login
       </button>
 
-      <div class="links">
+      <div class="links my-4">
         <p>Don't have an account? <a routerLink="/register">Register</a></p>
-        <p>Forgot password? <a routerLink="/forgot-password">Reset</a></p>
       </div>
 
       @if (isLoading) {

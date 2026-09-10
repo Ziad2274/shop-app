@@ -27,12 +27,6 @@
           <a class="nav-link" routerLink="product" routerLinkActive="active-link text-dark">Products</a>
         </li>
         <li class="nav-item pe-3">
-          <a class="nav-link" routerLink="categories" routerLinkActive="active-link text-dark">Categories</a>
-        </li>
-        <li class="nav-item pe-3">
-          <a class="nav-link" routerLink="brand" routerLinkActive="active-link text-dark">Brands</a>
-        </li>
-        <li class="nav-item pe-3">
           <a class="nav-link" routerLink="cart" routerLinkActive="active-link text-dark">Cart</a>
         </li>
       </ul>
@@ -69,16 +63,13 @@
   </div>
 </nav>
   <mat-menu #accountMenu="matMenu">
-     
+
         <div class="p-3 text-center border-bottom" style="min-width: 250px;">
             <p class="mb-1 fw-bold">{{ userName}}</p>
             <p class="text-muted small">{{userEmail }}</p>
-            <a mat-button color="primary" routerLink="/update-logged-password" class="mt-2 text-decoration-none">
-                Update Password
-            </a> 
-            <a mat-button color="primary" routerLink="/update-logged-data" class="mt-2 text-decoration-none">
-                Update Info
-            </a> 
+            <a mat-button color="primary" routerLink="/profile" class="mt-2 text-decoration-none">
+                View Profile
+            </a>
         </div>
 
         <button mat-menu-item routerLink="/allorders">
@@ -90,17 +81,20 @@
             <mat-icon>favorite</mat-icon>
             <span>Wishlist</span>
         </button>
-      
+
+        <button mat-menu-item routerLink="/change-password">
+            <mat-icon>lock_reset</mat-icon>
+            <span>Change Password</span>
+        </button>
+
         <button mat-menu-item routerLink="/addresses">
             <mat-icon>location_on</mat-icon>
             <span>Addresses</span>
         </button>
 
-
-
         <button mat-menu-item (click)="signOut()">
             <mat-icon>logout</mat-icon>
             <span>Sign Out</span>
         </button>
-    
+
 </mat-menu>

@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class CartComponent implements OnInit {
   cart:ICart;
   cartItemsDetailsList:CartProductDetails[]=[];
-  cartId: string = ''; 
+  cartId: string | null = null;
   isLoaded:boolean=false;
   cartItemsList:CartProduct[]=[];
   subTotal:number=0;

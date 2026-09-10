@@ -3,20 +3,33 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   padding: 2rem;
-}
 
+  background:
+    radial-gradient(
+      ellipse at right bottom,
+      rgba(20, 52, 181, 0.6) 10%,
+      rgba(9, 10, 15, 0.0) 30%
+    ),
+    radial-gradient(
+      ellipse at left top,
+      rgba(20, 52, 181, 0.6) 10%,
+      rgba(9, 10, 15, 0.0) 30%
+    ),
+    #090a0f;
+}
 .auth-card {
-  background: rgba(255, 255, 255, 0.05);
+  background:#192233;
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   color: #fff;
   padding: 2rem 3rem;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  width: 150%;
+  
+  max-width: 550px;
+  //max-height: 1000px;
+    box-shadow:0 0 15px 3px rgba(0, 123, 255, 0.4);
   animation: fadeInUp 0.8s ease;
 
   h2 {
@@ -25,8 +38,12 @@
     margin-bottom: 1.5rem;
     font-family: 'Archivo', sans-serif;
     letter-spacing: 0.5px;
+    
   }
+  p{
+    text-align: center;
 
+  }
   label {
     font-size: 0.95rem;
     margin-top: 1rem;
@@ -34,7 +51,7 @@
   }
 
   input {
-    background: rgba(255, 255, 255, 0.1);
+    background:#101622;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #fff;
@@ -46,9 +63,13 @@
     &:focus {
       border-color: #007bff;
       outline: none;
-      background: rgba(255, 255, 255, 0.15);
+   //   background: rgba(255, 255, 255, 0.15);
     }
   }
+    ::placeholder{
+      color: #515c70;
+    }
+
 
   .text-danger {
     color: #ff6b6b !important;
@@ -59,8 +80,8 @@
   }
 
   button {
-    background: #fff;
-    color: #000;
+   background: #0b70ec;
+    color: #ffffff;
     font-weight: 700;
     border: none;
     width: 100%;
@@ -68,7 +89,7 @@
     border-radius: 8px;
     margin-top: 1.5rem;
     transition: all 0.25s ease;
-
+    box-shadow:0 4px 6px rgba(0, 123, 255, 0.4);
     &:hover {
       transform: scale(1.03);
       background: #f8f9fa;
@@ -85,16 +106,7 @@
     margin-top: 1.5rem;
     font-size: 0.95rem;
 
-    a {
-      color: #00bfff;
-      text-decoration: none;
-      font-weight: 600;
-      margin-left: 0.3rem;
 
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 
   .spinner {
@@ -113,3 +125,13 @@
     transform: translateY(0);
   }
 }
+    a {
+      color: #0b70ec;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.3rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }

@@ -1,0 +1,76 @@
+<div class="container py-5" style="max-width: 600px;">
+  <h3 class="fw-bold mb-4">Checkout</h3>
+
+  @if (placedOrderId) {
+    <div class="alert alert-success">
+      ✅ Order placed successfully! Redirecting to your orders...
+    </div>
+  } @else {
+
+    <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+      <h5 class="fw-bold mb-3">Shipping Address</h5>
+
+      @if (loadingAddresses) {
+        <div class="spinner-border text-dark" role="status"></div>
+      } @else if (addresses.length === 0) {
+        <p class="text-muted">
+          You have no saved addresses yet.
+          <a routerLink="/addresses">Add one</a> before checking out.
+        </p>
+      } @else {
+        @for (address of addresses; track address._id) {
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="address"
+              [id]="address._id"
+              [value]="address._id"
+              [(ngModel)]="selectedAddressId"
+              [ngModelOptions]="{standalone: true}"
+            />
+            <label class="form-check-label" [for]="address._id">
+              {{ address.street }}, {{ address.city }}, {{ address.zipCode }}
+            </label>
+          </div>
+        }
+        <a routerLink="/addresses" class="small">+ Add another address</a>
+      }
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+      <h5 class="fw-bold mb-3">Coupon</h5>
+      <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()" class="d-flex gap-2">
+        <input type="text" class="form-control" placeholder="Coupon code" formControlName="code" />
+        <button type="submit" class="btn btn-outline-dark" [disabled]="applyingCoupon">Apply</button>
+      </form>
+      @if (couponError) {
+        <small class="text-danger d-block mt-2">{{ couponError }}</small>
+      }
+      @if (couponResult) {
+        <small class="text-success d-block mt-2">
+          Coupon "{{ couponResult.code }}" applied: -{{ couponResult.discountAmount | currency:'USD' }}
+          → new total {{ couponResult.newTotal | currency:'USD' }}
+        </small>
+      }
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+      <div class="d-flex justify-content-between mb-3">
+        <span class="text-muted">Cart total</span>
+        <span class="fw-bold">{{ (couponResult?.newTotal ?? subTotal) | currency:'USD' }}</span>
+      </div>
+
+      @if (placeOrderError) {
+        <div class="alert alert-danger py-2">{{ placeOrderError }}</div>
+      }
+
+      <button class="btn btn-dark w-100" (click)="placeOrder()" [disabled]="placingOrder || !selectedAddressId">
+        @if (placingOrder) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+        }
+        Place Order
+      </button>
+    </div>
+  }
+</div>

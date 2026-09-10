@@ -1,1 +1,18 @@
-<p>profile works!</p>
+<div class="container py-5" style="max-width: 500px;">
+  @if (loading) {
+    <div class="d-flex justify-content-center py-5">
+      <div class="spinner-border text-dark" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  } @else if (profile) {
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+      <h3 class="fw-bold mb-4">My Profile</h3>
+      <p class="mb-2"><span class="fw-semibold">Name:</span> {{ profile.firstName }} {{ profile.lastName }}</p>
+      <p class="mb-2"><span class="fw-semibold">Email:</span> {{ profile.email }}</p>
+      <p class="mb-0"><span class="fw-semibold">Phone:</span> {{ profile.phone }}</p>
+    </div>
+  }
+</div>
