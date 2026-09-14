@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -17,7 +17,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   registerForm: FormGroup = new FormGroup(
     {
       name: new FormControl(null, [
@@ -53,29 +53,57 @@ export class RegisterComponent {
   errMsg: string = '';
   isloading: boolean = false;
   isSuccess: boolean = false;
+  // True once a request has been pending a while — lets the UI hint that the
+  // free-tier backend may just be waking up from being idle, instead of
+  // looking stuck or silently failing.
+  slowLoading: boolean = false;
+  private slowLoadingTimer: ReturnType<typeof setTimeout> | undefined;
 
   registerSubmit() {
     if (this.registerForm.valid) {
       this.isloading = true;
+      this.errMsg = '';
+      this.isSuccess = false;
+      this.slowLoading = false;
+      clearTimeout(this.slowLoadingTimer);
+      this.slowLoadingTimer = setTimeout(() => {
+        this.slowLoading = true;
+      }, 4000);
+
       this._auth.setRegister(this.registerForm.value).subscribe({
         next: (response) => {
           console.log(response);
           this.isloading = false;
+          this.slowLoading = false;
+          clearTimeout(this.slowLoadingTimer);
           this.isSuccess = true;
           setTimeout(() => {
           this._router.navigate(['/login']);
           }, 2000);
         },
         error: (e: HttpErrorResponse) => {
-          this.errMsg = e.error.message;
-          console.log(this.errMsg);
           this.isloading = false;
+          this.slowLoading = false;
+          clearTimeout(this.slowLoadingTimer);
+          if (e.status === 0 || (e.status >= 502 && e.status <= 504)) {
+            // Timed out / gateway error — very likely the free-tier backend
+            // was just waking up from being idle. The request may well have
+            // gone through on the server side despite the timeout.
+            this.errMsg = "That took too long — the server may still be waking up after being idle. Please wait a moment, then try signing in instead; your account may already be created.";
+          } else {
+            this.errMsg = e.error?.message || 'Something went wrong. Please try again.';
+          }
+          console.log(this.errMsg);
         },
       });
     } else {
       this.registerForm.setErrors({ invalidForm: true });
       this.registerForm.markAllAsTouched();
     }
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.slowLoadingTimer);
   }
 }
 //ferej91555@fergetic.com

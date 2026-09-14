@@ -41,6 +41,11 @@
         <div class="spinner">
           <i class="fas fa-spin fa-spinner"></i>
         </div>
+        @if (slowLoading) {
+          <p class="text-muted small mt-2">
+            Still working — the server may be waking up after being idle. This can take up to a minute…
+          </p>
+        }
       }
 
       @if (errMsg) {
