@@ -25,7 +25,7 @@
                   [routerLink]="['/categories', item._id, 'subcategories']"
                   [colspan]="($index%4=== 0||$index%4===3) ? 1 : 2"
                   [rowspan]="1" class="style-card">
-                  <img [src]=[item.image] alt="Casual" />
+                  <img [src]="item.image" [alt]="item.name" (error)="onImageError($event)" />
                   <div class="overlay"><h3>{{item.name}}</h3></div>
                   
               </mat-grid-tile>        

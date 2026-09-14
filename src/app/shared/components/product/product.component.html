@@ -63,6 +63,7 @@
           class="product-image"
           [src]="product.imageCover"
           [alt]="product.title"
+          (error)="onImageError($event)"
         />
       </div>
 

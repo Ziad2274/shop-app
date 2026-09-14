@@ -12,6 +12,8 @@ import { ReviewService } from '../../../core/services/review.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 
+const PRODUCT_IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23e9ecef'/%3E%3Ctext x='50%25' y='50%25' font-size='16' fill='%236c757d' text-anchor='middle' dy='.3em'%3ENo Image%3C/text%3E%3C/svg%3E";
+
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -198,5 +200,11 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
     if (this.successTimeout) {
       clearTimeout(this.successTimeout);
     }
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = PRODUCT_IMG_PLACEHOLDER;
   }
 }

@@ -60,7 +60,7 @@
       </button>
 
       <div [routerLink]="['/product-details', product.id]">
-        <img class="product-image" [src]="product.imageCover" [alt]="product.title" />
+        <img class="product-image" [src]="product.imageCover" [alt]="product.title" (error)="onImageError($event)" />
       </div>
 
       <h4>{{ product.title | trim:2 }}</h4>
@@ -103,7 +103,7 @@
         </button>
 
         <div [routerLink]="['/product-details', product.id]">
-          <img class="product-image" [src]="product.imageCover" [alt]="product.title" />
+          <img class="product-image" [src]="product.imageCover" [alt]="product.title" (error)="onImageError($event)" />
         </div>
 
         <h4>{{ product.title | trim:2 }}</h4>
@@ -154,7 +154,7 @@
 
   <!-- Product Image -->
   <div [routerLink]="['/product-details', product.id]">
-    <img class="product-image" [src]="product.imageCover" [alt]="product.title" />
+    <img class="product-image" [src]="product.imageCover" [alt]="product.title" (error)="onImageError($event)" />
   </div>
 
   <h4>{{ product.title | trim:2 }}</h4>

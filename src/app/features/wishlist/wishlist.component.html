@@ -14,7 +14,7 @@
         @for (item of wishlist; track $index) {
           <div class="wishlist-row">
             <div class="image" (click)="goToProduct(item._id)">
-              <img [src]="item.imageCover" [alt]="item.title" />
+              <img [src]="item.imageCover" [alt]="item.title" (error)="onImageError($event)" />
             </div>
 
             <div class="info" (click)="goToProduct(item._id)">

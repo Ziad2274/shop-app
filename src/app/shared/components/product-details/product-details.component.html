@@ -25,7 +25,7 @@
         </div>
 
         <div class="image-section">
-            <img [src]="productDetails.imageCover" [alt]="productDetails.title" />
+            <img [src]="productDetails.imageCover" [alt]="productDetails.title" (error)="onImageError($event)" />
         </div>
 
 
